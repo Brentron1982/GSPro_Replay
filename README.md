@@ -1,4 +1,4 @@
-# GSPro_Replay
+# GSPro Replay
 
 **Turn a round you played in [GSPro](https://gsprogolf.com) into a 3D recreation of the real course, with every shot flying over it. Watch it as an interactive replay, or export it as an MP4.**
 
@@ -26,6 +26,7 @@ It comes with a Windows desktop app, so you don't need the command line.
 - [Looks and cameras](#looks-and-cameras)
 - [How it works](#how-it-works)
 - [Options reference](#options-reference)
+- [If your course can't be found](#if-your-course-cant-be-found)
 - [Troubleshooting](#troubleshooting)
 - [Development](#development)
 - [Data sources and attribution](#data-sources-and-attribution)
@@ -271,15 +272,85 @@ examples/        sample shot files and a pins file
 
 ---
 
+## If your course can't be found
+
+The program looks up your course by name on OpenStreetMap. If the lookup fails (*"Couldn't find that golf course on OpenStreetMap"*) or finds the wrong place, tell it exactly where the course is by giving the four edges of a box around it, called a **bounding box**.
+
+### Step 1: find the course on OpenStreetMap
+
+1. Go to **[openstreetmap.org](https://www.openstreetmap.org)**.
+2. Type the course name or its town into the **Search** box at the top left and press Enter. If the course doesn't come up, search for the town and pan to the course by dragging the map.
+3. Zoom and pan until **the whole course fills the map**, with all 18 holes plus a little space around the edges. A box a bit too large is fine; a box that cuts off holes is not.
+
+### Step 2: read the box coordinates
+
+1. Click **Export** in the menu bar at the top of the page.
+2. A panel opens on the left showing four numbers in a cross shape. These are the edges of the area currently on screen:
+
+   ```
+                 40.4612        <- top    = north
+     -86.9561          -86.9402 <- left   = west, right = east
+                 40.4498        <- bottom = south
+   ```
+
+3. Optional: to adjust the box without moving the map, click **Manually select a different area** and drag the box's corners.
+
+You don't need to click the Export button inside the panel. You only need the four numbers.
+
+### Step 3: give the box to GSPro Replay
+
+The program expects the numbers in the order **south, west, north, east**: bottom, left, top, right.
+
+**In the desktop app:** under **3 Options**, tick **Advanced ▸** and type the numbers into **Bounding box**, separated by commas, for example:
+
+```
+40.4498,-86.9561,40.4612,-86.9402
+```
+
+Then click **Build replay**. You can leave the course name filled in; the box is used instead of the name lookup.
+
+**On the command line:**
+
+```bash
+gspro-replay build --shots PlayerShots.csv --bbox 40.4498,-86.9561,40.4612,-86.9402 --out mycourse
+```
+
+**Tips:**
+
+- In the US, west (longitude) numbers are **negative**. Keep the minus signs.
+- If the build says *"N golf courses in area; using the one with most holes"*, your box covers more than one course. Zoom in closer and read the numbers again.
+- `--margin` (default 70 m) adds scenery around the box, so the box itself only needs to cover the course.
+
+### Course found, but holes are missing
+
+If the build finds the course but says *"No golf=hole ways found"*, or lists only some hole numbers, the course exists on OpenStreetMap but its holes haven't been drawn yet. OpenStreetMap is edited by volunteers, so you can add them yourself, and every golf app that uses OSM benefits. It takes 20–30 minutes for 18 holes.
+
+1. Create a free account at [openstreetmap.org](https://www.openstreetmap.org/user/new) and log in.
+2. Zoom to the course and click **Edit**. This opens the **iD** editor with aerial imagery underneath.
+3. **Draw each hole:**
+   1. Click **Line**.
+   2. Click on the back tee, then at any dogleg corners along the fairway, and double-click on the centre of the green.
+   3. In the panel on the left, choose the preset **Golf Hole** (tag `golf=hole`).
+   4. Fill in **Reference** with the hole number (tag `ref`) and **Par** (tag `par`).
+
+   Always draw from tee to green, because the direction matters.
+4. **Optional, but it makes the replay look much better:** trace the greens, tees, fairways and bunkers as **Area** features with the presets **Golf Green**, **Tee Box**, **Fairway** and **Sand Trap / Bunker** (tags `golf=green`, `golf=tee`, `golf=fairway`, `golf=bunker`). Mark ponds as **Water**.
+5. Click **Save** and add a short comment such as *"Added golf holes for Purgatory Golf Club"*.
+6. Wait a few minutes for the map data to update, then click **Build replay** again.
+
+Map only what really exists, by tracing the aerial imagery available inside iD, and don't copy course maps from other websites. OpenStreetMap's licence doesn't allow copying from other maps.
+
+---
+
 ## Troubleshooting
 
 | Problem | Fix |
 |---|---|
 | The launcher's black window flashes and closes | You're running it from inside the zip. Extract the zip first, then run `Install (run once).bat`. |
 | `'python' is not recognized` | Re-run the Python installer, choose **Modify**, and tick **Add python.exe to PATH**. |
-| "Couldn't find that golf course" | Check the course's exact name on [openstreetmap.org](https://www.openstreetmap.org), add the town, or use **Advanced → Bounding box**. |
-| "No golf=hole ways found" | The course isn't mapped hole by hole in OSM. Adding the holes in the iD editor (`golf=hole`, `ref`, `par`, drawn from tee to green) takes about 20 minutes and helps everyone. |
-| Wrong course at a 36-hole facility | Pass a tighter `--bbox`. |
+| "Couldn't find that golf course" | Add the town/state, or give the course's location as a bounding box: see [If your course can't be found](#if-your-course-cant-be-found). |
+| "No golf=hole ways found", or holes missing | The holes aren't drawn in OpenStreetMap yet. See [Course found, but holes are missing](#course-found-but-holes-are-missing). |
+| Wrong course at a 36-hole facility | Use a tighter bounding box around just your course: see [If your course can't be found](#if-your-course-cant-be-found). |
 | `HTTP 429 Too Many Requests` while downloading lidar | It's retried automatically. If it keeps failing, the build falls back to the 3DEP elevation model, and tiles that already downloaded are reused next time. |
 | `HTTP 502` from Overpass | Temporary; it's retried automatically. |
 | Shots look offset from GSPro | GSPro course designs don't always match the real layout. Use `--pins` for exact pin positions. |
@@ -315,4 +386,3 @@ GSPro Replay is an independent project and isn't affiliated with or endorsed by 
 ## License
 
 _Add your license here (for example MIT) and include a `LICENSE` file._
-
