@@ -2,8 +2,6 @@
 
 **Turn a round you played in [GSPro](https://gsprogolf.com) into a 3D recreation of the real course, with every shot flying over it. Watch it as an interactive replay, or export it as an MP4.**
 
-![Broadcast-style replay of a drive](docs/images/hero.jpg)
-
 GSPro Replay takes the shot data GSPro exports and combines it with:
 
 - **OpenStreetMap** golf features: holes, greens, fairways, bunkers, water and trees.
