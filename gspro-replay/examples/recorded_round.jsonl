@@ -1,0 +1,7 @@
+{"time": 0, "player": {"Club": "DR", "DistanceToTarget": 400}, "shot": {"BallData": {"Speed": 150, "VLA": 12, "HLA": 0, "TotalSpin": 2700, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "7I", "DistanceToTarget": 160}, "shot": {"BallData": {"Speed": 118, "VLA": 17, "HLA": 0, "TotalSpin": 6500, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "PT", "DistanceToTarget": 4}, "shot": {"BallData": {"Speed": 5, "VLA": 1, "HLA": 0, "TotalSpin": 0, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "DR", "DistanceToTarget": 380}, "shot": {"BallData": {"Speed": 148, "VLA": 12, "HLA": 0, "TotalSpin": 2600, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "PW", "DistanceToTarget": 120}, "shot": {"BallData": {"Speed": 95, "VLA": 26, "HLA": 0, "TotalSpin": 8800, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "PT", "DistanceToTarget": 8}, "shot": {"BallData": {"Speed": 7, "VLA": 1, "HLA": 0, "TotalSpin": 0, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}
+{"time": 0, "player": {"Club": "PT", "DistanceToTarget": 1}, "shot": {"BallData": {"Speed": 2, "VLA": 1, "HLA": 0, "TotalSpin": 0, "SpinAxis": 2}, "ShotDataOptions": {"ContainsBallData": true}}}

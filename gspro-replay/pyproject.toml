@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gspro-replay"
+version = "1.0.0"
+description = "Low-poly 3D replays of GSPro rounds on real courses (OSM + USGS lidar), with MP4 export"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "shapely>=2.0", "pillow>=10", "tifffile>=2023.1",
+                "playwright>=1.40", "imageio-ffmpeg>=0.4.9"]
+
+[project.optional-dependencies]
+lidar = ["laspy[lazrs]>=2.4", "pyproj>=3.5"]
+
+[project.scripts]
+gspro-replay = "gspro_replay.cli:main"
+
+[project.gui-scripts]
+gspro-replay-gui = "gspro_replay.gui:main"
+
+[tool.setuptools]
+packages = ["gspro_replay"]
+
+[tool.setuptools.package-data]
+gspro_replay = ["viewer_dist/*"]

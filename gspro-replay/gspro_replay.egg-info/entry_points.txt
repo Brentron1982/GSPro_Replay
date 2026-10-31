@@ -1,0 +1,5 @@
+[console_scripts]
+gspro-replay = gspro_replay.cli:main
+
+[gui_scripts]
+gspro-replay-gui = gspro_replay.gui:main

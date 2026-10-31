@@ -1,0 +1,11 @@
+numpy>=1.24
+scipy>=1.10
+shapely>=2.0
+pillow>=10
+tifffile>=2023.1
+playwright>=1.40
+imageio-ffmpeg>=0.4.9
+
+[lidar]
+laspy[lazrs]>=2.4
+pyproj>=3.5
