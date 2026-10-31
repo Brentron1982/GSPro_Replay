@@ -1,7 +1,4 @@
 # GSPro_Replay
-A lightweight python based program to turn your GSPro data into a round replay.
-
-# GSPro Replay
 
 **Turn a round you played in [GSPro](https://gsprogolf.com) into a 3D recreation of the real course, with every shot flying over it. Watch it as an interactive replay, or export it as an MP4.**
 
